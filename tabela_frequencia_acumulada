@@ -1,0 +1,33 @@
+import math
+from itertools import accumulate
+
+def tabela_frequencias(classes, frequencias):
+    """
+    argumentos:
+    classes: lista de classes.
+    frequencias: lista de frequências correspondente a cada classe.
+
+    retorna:
+    uma string representando a tabela de frequências.
+    """
+    #calcula a frequencia total
+    frequencia_total = sum(frequencias)
+
+    #calcula a frequencia relativa e a frequencia acumulada
+    frequencias_relativas = [f / frequencia_total for f in frequencias]
+    frequencias_acumuladas = list(accumulate(frequencias))
+    frequencias_relativas_acumuladas = [f / frequencia_total for f in frequencias_acumuladas]
+
+    #cria a tabela de frequencias
+    tabela = "  classe  |  frequencia  |  Frequencia relativa  |  frequencia acumulada  |  frequencia relativa acumulada\n"
+    tabela += "-" * 103 + "\n"
+    for i in range(len(classes)):
+        tabela += f"{classes[i].center(10)} | {str(frequencias[i]).center(13)} | {str(round(frequencias_relativas[i], 3)).center(22)} | {str(frequencias_acumuladas[i]).center(22)} | {str(round(frequencias_relativas_acumuladas[i], 3)).center(30)}\n"
+
+    return tabela
+
+classes = ['0-10', '10-20', '20-30', '30-40', '40-50', '50-60', '60-70', '70-80']
+frequencias = [1, 13, 21, 24, 13, 11, 2, 0]
+
+tabela = tabela_frequencias(classes, frequencias)
+print(tabela)
